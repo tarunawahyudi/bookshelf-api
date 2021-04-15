@@ -32,8 +32,29 @@ const addBookHandler = (request, h) => {
     insertedAt,
     updateAt,
   };
-};
 
-books.push(newBook);
+  books.push(newBook);
+
+  const isSuccess = books.filter((book) => book.id === id).length > 0;
+
+  if (isSuccess) {
+    const response = h.response({
+      status: 'success',
+      message: 'Buku berhasil ditambahkan',
+      data: {
+        bookId: id,
+      },
+    });
+    response.code(201);
+    return response;
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'Buku gagal ditambahkan',
+  });
+  response.code(500);
+  return response;
+};
 
 module.exports = { addBookHandler };
