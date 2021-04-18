@@ -16,7 +16,7 @@ const addBookHandler = (request, h) => {
   const id = nanoid(16);
   const finished = pageCount === readPage;
   const insertedAt = new Date().toISOString();
-  const updateAt = insertedAt;
+  const updatedAt = insertedAt;
 
   const newBook = {
     id,
@@ -30,7 +30,7 @@ const addBookHandler = (request, h) => {
     finished,
     reading,
     insertedAt,
-    updateAt,
+    updatedAt,
   };
 
   if (!name) {
@@ -184,7 +184,7 @@ const deleteBookById = (request, h) => {
 
   const index = books.findIndex((book) => book.id === id);
   
-  if (index !== 1) {
+  if (index !== -1) {
     books.splice(index, 1);
     const response = h.response({
       status: 'success',
